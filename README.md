@@ -335,6 +335,7 @@ VeighNa使用Github托管其源代码，如果希望贡献代码请使用github�
 * [社区行为准则](https://github.com/vnpy/vnpy/blob/dev/.github/CODE_OF_CONDUCT.md)
 * [Issue模板](https://github.com/vnpy/vnpy/blob/dev/.github/ISSUE_TEMPLATE.md)
 * [PR模板](https://github.com/vnpy/vnpy/blob/dev/.github/PULL_REQUEST_TEMPLATE.md)
+* [开发规则](ai_docs/DEVELOPMENT_RULES.md)
 
 ## 版权说明
 
