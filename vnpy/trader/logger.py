@@ -47,9 +47,14 @@ if SETTINGS["log.console"]:
 
 # Add file output
 if SETTINGS["log.file"]:
-    today_date: str = datetime.now().strftime("%Y%m%d")
-    filename: str = f"vt_{today_date}.log"
-    log_path: Path = get_folder_path("log")
-    file_path: Path = log_path.joinpath(filename)
+    try:
+        today_date: str = datetime.now().strftime("%Y%m%d")
+        filename: str = f"vt_{today_date}.log"
+        log_path: Path = get_folder_path("log")
+        file_path: Path = log_path.joinpath(filename)
 
-    logger.add(sink=file_path, level=level, format=format)
+        logger.add(sink=file_path, level=level, format=format)
+    except Exception as e:
+        # 如果无法创建日志文件，只输出到控制台
+        logger.warning(f"无法创建日志文件: {e}")
+        logger.warning("将仅输出日志到控制台")

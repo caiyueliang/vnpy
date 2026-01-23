@@ -222,3 +222,5 @@ VeighNa是一套基于Python的开源量化交易系统开发框架，旨在为�
 
 **VeighNa项目组**
 **最后更新时间**：2026-01-23
+
+'python examples/veighna_trader/run.py'
