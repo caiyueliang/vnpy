@@ -14,6 +14,15 @@ pip install vnpy_ctastrategy vnpy_ctabacktester
 
 # 安装SQLite数据库驱动
 pip install vnpy_sqlite
+
+# 安装本地仿真模块（模拟实盘）
+pip install vnpy_paperaccount
+
+# 安装RQData数据源（股票、期货、期权、基金、债券）
+pip install vnpy_rqdata
+
+# 安装TuShare数据源（股票、期货、期权、基金、债券）
+pip install vnpy_tushare
 ```
 
 ### 2.2 尝试安装但失败的包
@@ -180,10 +189,80 @@ python test_cta_installation.py
 - 核心的CTA应用（`vnpy_ctastrategy`和`vnpy_ctabacktester`）已成功安装
 - 可以使用这些应用进行策略开发和回测
 - **vnpy_binance网关已成功安装并可以正常导入**
+- **vnpy_paperaccount本地仿真模块已成功安装并可以正常导入**
+- **vnpy_rqdata数据源已成功安装并可以正常导入**
+- **vnpy_tushare数据源已成功安装并可以正常导入**
 - vnpy_ctp和vnpy_tts由于C++编译问题无法安装
 - vnpy_xt、vnpy_okex、vnpy_ib等网关虽然可以安装，但存在兼容性问题
 - 在实际交易环境中，建议使用vnpy_binance或其他兼容的网关
 - 遇到权限问题时，可以修改代码添加错误处理，或者在具有完整权限的环境中运行
+
+## 7. 股票量化交易、回测和模拟实盘所需包
+
+根据[README.md](../README.md)，股票量化交易、回测和模拟实盘需要以下包：
+
+### 7.1 已安装的包 ✅
+
+1. **vnpy_ctastrategy (1.4.1)** - CTA策略引擎
+   - 用于开发和运行CTA策略
+   - 支持细粒度的委托报撤行为控制
+
+2. **vnpy_ctabacktester (1.3.0)** - CTA策略回测模块
+   - 用于策略回测分析、参数优化
+   - 提供图形界面进行回测
+
+3. **vnpy_paperaccount (1.0.6)** - 本地仿真模块
+   - 纯本地化实现的仿真模拟交易功能
+   - 基于交易接口获取的实时行情进行委托撮合
+   - 提供委托成交推送以及持仓记录
+
+4. **vnpy_rqdata (3.2.14.1)** - RQData数据源
+   - 覆盖股票、期货、期权、基金、债券、黄金TD
+   - 需要RQData账号
+
+5. **vnpy_tushare (1.4.21.0)** - TuShare数据源
+   - 覆盖股票、期货、期权、基金、债券
+   - 免费数据源
+
+6. **vnpy_sqlite (1.1.3)** - SQLite数据库
+   - 轻量级单文件数据库
+   - VeighNa的默认选项
+
+### 7.2 缺少的包 ❌
+
+**无！** 所有股票量化交易、回测和模拟实盘所需的包都已安装。
+
+### 7.3 使用示例
+
+```python
+from vnpy.event import EventEngine
+from vnpy.trader.engine import MainEngine
+from vnpy.trader.ui import MainWindow, create_qapp
+
+from vnpy_ctastrategy import CtaStrategyApp
+from vnpy_ctabacktester import CtaBacktesterApp
+from vnpy_paperaccount import PaperAccountApp
+from vnpy_rqdata import rqdata_datafeed
+from vnpy_sqlite import Database
+
+def main():
+    qapp = create_qapp()
+    
+    event_engine = EventEngine()
+    main_engine = MainEngine(event_engine)
+    
+    main_engine.add_app(CtaStrategyApp)
+    main_engine.add_app(CtaBacktesterApp)
+    main_engine.add_app(PaperAccountApp)
+    
+    main_window = MainWindow(main_engine, event_engine)
+    main_window.showMaximized()
+    
+    qapp.exec()
+
+if __name__ == "__main__":
+    main()
+```
 
 ## 7. 后续建议
 
