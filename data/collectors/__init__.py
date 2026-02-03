@@ -12,6 +12,9 @@ from .capital_flow_collector import (
     CapitalFlowType,
     DragonTigerData
 )
+from .tushare_collector import TushareCollector
+from .rqdata_collector import RQDataCollector
+from .fundamental_collector import FundamentalCollector
 
 __all__ = [
     "DataCollector",
@@ -23,4 +26,7 @@ __all__ = [
     "CapitalFlowData",
     "CapitalFlowType",
     "DragonTigerData",
+    "TushareCollector",
+    "RQDataCollector",
+    "FundamentalCollector",
 ]
