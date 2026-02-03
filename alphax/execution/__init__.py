@@ -55,6 +55,30 @@ from alphax.execution.slippage_control import (
     SlippageController,
 )
 
+from alphax.execution.fill_rate_optimizer import (
+    # 枚举
+    FillRateStatus,
+
+    # 数据类
+    OrderFillStats,
+    FillRateMetrics,
+    LiquidityMetrics,
+
+    # 价格策略
+    PriceImprovementStrategy,
+    PassivePriceStrategy,
+    AggressivePriceStrategy,
+    AdaptivePriceStrategy,
+
+    # 订单策略
+    OrderSplitStrategy,
+    RetryStrategy,
+
+    # 优化器
+    FillRateOptimizer,
+    SmartOrderRouter,
+)
+
 __all__ = [
     # 算法交易 - 枚举
     "AlgoStatus",
@@ -91,4 +115,18 @@ __all__ = [
     "VolumeSlippageModel",
     "CompositeSlippageModel",
     "SlippageController",
+
+    # 成交率优化
+    "FillRateStatus",
+    "OrderFillStats",
+    "FillRateMetrics",
+    "LiquidityMetrics",
+    "PriceImprovementStrategy",
+    "PassivePriceStrategy",
+    "AggressivePriceStrategy",
+    "AdaptivePriceStrategy",
+    "OrderSplitStrategy",
+    "RetryStrategy",
+    "FillRateOptimizer",
+    "SmartOrderRouter",
 ]
