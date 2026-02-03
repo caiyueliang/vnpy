@@ -6,6 +6,12 @@
 
 from .base import DataCollector, CollectorConfig, DataSource, DataType
 from .akshare_collector import AKShareCollector
+from .capital_flow_collector import (
+    CapitalFlowCollector,
+    CapitalFlowData,
+    CapitalFlowType,
+    DragonTigerData
+)
 
 __all__ = [
     "DataCollector",
@@ -13,4 +19,8 @@ __all__ = [
     "DataSource",
     "DataType",
     "AKShareCollector",
+    "CapitalFlowCollector",
+    "CapitalFlowData",
+    "CapitalFlowType",
+    "DragonTigerData",
 ]
