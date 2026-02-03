@@ -21,6 +21,18 @@ from .ml_strategy import (
     MLStrategyConfig,
     FeatureEngineer,
 )
+from .event_driven_strategy import (
+    EarningsEventStrategy,
+    CapitalFlowEventStrategy,
+    DragonTigerEventStrategy,
+    EventDrivenConfig,
+)
+from .portfolio_strategy import (
+    RiskParityStrategy,
+    FactorRotationStrategy,
+    SmartAssetAllocationStrategy,
+    PortfolioConfig,
+)
 
 __all__ = [
     "StrategyTemplate",
@@ -40,4 +52,12 @@ __all__ = [
     "RLStrategyFramework",
     "MLStrategyConfig",
     "FeatureEngineer",
+    "EarningsEventStrategy",
+    "CapitalFlowEventStrategy",
+    "DragonTigerEventStrategy",
+    "EventDrivenConfig",
+    "RiskParityStrategy",
+    "FactorRotationStrategy",
+    "SmartAssetAllocationStrategy",
+    "PortfolioConfig",
 ]

@@ -15,6 +15,7 @@ from .capital_flow_collector import (
 from .tushare_collector import TushareCollector
 from .rqdata_collector import RQDataCollector
 from .fundamental_collector import FundamentalCollector
+from .alternative_collector import AlternativeCollector
 
 __all__ = [
     "DataCollector",
@@ -29,4 +30,5 @@ __all__ = [
     "TushareCollector",
     "RQDataCollector",
     "FundamentalCollector",
+    "AlternativeCollector",
 ]
