@@ -12,6 +12,13 @@ from .capital_flow_collector import (
     CapitalFlowType,
     DragonTigerData
 )
+from .tick_collector import (
+    TickCollector,
+    TickData,
+    TickDataType,
+    TradeData,
+    DepthLevel
+)
 from .tushare_collector import TushareCollector
 from .rqdata_collector import RQDataCollector
 from .fundamental_collector import FundamentalCollector
@@ -27,6 +34,11 @@ __all__ = [
     "CapitalFlowData",
     "CapitalFlowType",
     "DragonTigerData",
+    "TickCollector",
+    "TickData",
+    "TickDataType",
+    "TradeData",
+    "DepthLevel",
     "TushareCollector",
     "RQDataCollector",
     "FundamentalCollector",
