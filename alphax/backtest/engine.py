@@ -212,7 +212,8 @@ class BacktestEngine:
             position_size = self.position_manager.get_position(vt_symbol)
             if position_size != 0:
                 position_value = position_size * bar.close_price * self.config.size
-                self.position_manager.update_position_value(vt_symbol, position_value)
+                # 更新持仓市值
+                self.position_manager.position_value[vt_symbol] = position_value
                 self.risk_manager.update_position_value(vt_symbol, abs(position_value))
 
     def _calculate_daily_result(self, current_date: date) -> None:
