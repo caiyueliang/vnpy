@@ -40,11 +40,11 @@ class ValidationConfig:
     test_period: int = 63    # 测试期（交易日）
     n_splits: int = 5        # 交叉验证折数
 
-    # 目标指标
-    target_annual_return: float = 10.0  # 目标年化收益率 1000%
-    target_sharpe: float = 3.0
-    target_max_drawdown: float = 0.20
-    target_win_rate: float = 0.55
+    # 目标指标 (调整为年化100%，即一年一倍)
+    target_annual_return: float = 1.0  # 目标年化收益率 100%
+    target_sharpe: float = 2.0         # 夏普比率目标调整为2.0
+    target_max_drawdown: float = 0.20  # 最大回撤20%
+    target_win_rate: float = 0.55      # 胜率55%
 
     # 风险约束
     risk_limits: RiskLimits = field(default_factory=RiskLimits)

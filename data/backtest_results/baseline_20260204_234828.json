@@ -1,0 +1,12 @@
+{
+  "symbol": "600519",
+  "name": "贵州茅台",
+  "period": "2024-02-05 to 2026-02-04",
+  "total_days": 484,
+  "buy_hold_return": 0.0008597549370278373,
+  "buy_hold_annual_return": 0.00044754879980812845,
+  "volatility": 0.24890723940908896,
+  "sharpe": 0.0017980545719386014,
+  "target_return": 1.0,
+  "achievement_rate": 0.00044754879980812845
+}
