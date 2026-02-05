@@ -224,36 +224,41 @@ class BacktestEngine:
         day_trades = [t for t in self.trades if t.datetime.date() == current_date]
         result.trade_count = len(day_trades)
 
-        # 计算当日盈亏
+        # 计算当日手续费和滑点
         for trade in day_trades:
-            turnover = trade.price * trade.volume * self.config.size
-            commission = turnover * self.config.commission_rate
-            slippage = trade.price * trade.volume * self.config.slippage * self.config.size
+            trade_value = trade.price * trade.volume * self.config.size
+            commission = trade_value * self.config.commission_rate
+            slippage = trade_value * self.config.slippage
 
-            result.turnover += turnover
+            result.turnover += trade_value
             result.commission += commission
             result.slippage += slippage
 
-            # 计算交易盈亏
-            trade_pnl = self._calculate_trade_pnl(trade)
-            result.trading_pnl += trade_pnl
-
         # 计算持仓盈亏
+        total_position_value = 0.0
         for vt_symbol, bar in self.current_bars.items():
             position_size = self.position_manager.get_position(vt_symbol)
             if position_size != 0:
-                # 简化计算，使用收盘价
+                # 计算持仓市值
+                position_value = position_size * bar.close_price * self.config.size
+                total_position_value += position_value
+
+                # 计算持仓盈亏
                 cost = self.position_manager.position_cost.get(vt_symbol, 0)
                 if cost > 0:
                     holding_pnl = (bar.close_price - cost) * position_size * self.config.size
                     result.holding_pnl += holding_pnl
 
-        result.total_pnl = result.trading_pnl + result.holding_pnl
+        # 计算总盈亏
+        result.total_pnl = result.holding_pnl
         result.net_pnl = result.total_pnl - result.commission - result.slippage
 
-        # 更新余额
-        self.balance += result.net_pnl
+        # 更新余额（初始资金 + 持仓盈亏 - 费用）
+        self.balance = self.config.initial_capital + total_position_value - self.frozen - result.commission - result.slippage
         self.available = self.balance - self.frozen
+
+        # 更新风控管理器的当前资金
+        self.risk_manager.current_capital = self.balance
 
         result.balance = self.balance
         result.close_price = bar.close_price if bar else 0
@@ -443,6 +448,25 @@ class BacktestEngine:
         order.traded = order.volume
         order.status = Status.ALLTRADED
 
+        # 计算交易金额
+        trade_value = trade_price * order.volume * self.config.size
+
+        # 更新资金（简化逻辑：balance不直接变化，通过frozen管理）
+        if order.offset == Offset.OPEN:
+            # 开仓：将可用资金转为冻结资金
+            self.frozen += trade_value
+        else:
+            # 平仓：将冻结资金转为可用资金
+            self.frozen -= trade_value
+
+        # 计算费用
+        commission = trade_value * self.config.commission_rate
+        slippage = trade_value * self.config.slippage
+        self.balance -= (commission + slippage)
+
+        # 更新可用资金
+        self.available = self.balance - self.frozen
+
         # 更新持仓
         self.position_manager.update_position(
             vt_symbol=order.vt_symbol,
@@ -453,20 +477,6 @@ class BacktestEngine:
 
         # 更新风控
         self.risk_manager.update_trade(trade)
-
-        # 计算费用
-        turnover = trade_price * order.volume * self.config.size
-        commission = turnover * self.config.commission_rate
-        slippage = trade_price * order.volume * self.config.slippage * self.config.size
-
-        # 更新资金
-        if order.offset == Offset.OPEN:
-            margin = turnover * 0.1  # 假设10%保证金
-            self.frozen += margin
-        else:
-            self.frozen -= turnover * 0.1
-
-        self.available = self.balance - self.frozen - commission - slippage
 
         # 触发回调
         self._emit("trade", trade)

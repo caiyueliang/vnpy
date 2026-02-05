@@ -1,0 +1,44 @@
+{
+  "多因子动量策略": {
+    "strategy_name": "多因子动量策略",
+    "initial_capital": 10000000.0,
+    "final_capital": 5424693749731.839,
+    "total_return": Infinity,
+    "annual_return": Infinity,
+    "max_drawdown": -0.9263977048325265,
+    "sharpe_ratio": 23.020316166160345,
+    "win_rate": 0.0,
+    "profit_loss_ratio": 0.0,
+    "total_trades": 0,
+    "winning_trades": 0,
+    "losing_trades": 0
+  },
+  "突破策略": {
+    "strategy_name": "突破策略",
+    "initial_capital": 10000000.0,
+    "final_capital": 10000000.0,
+    "total_return": 0.0,
+    "annual_return": 0.0,
+    "max_drawdown": 0.0,
+    "sharpe_ratio": 0.0,
+    "win_rate": 0.0,
+    "profit_loss_ratio": 0.0,
+    "total_trades": 0,
+    "winning_trades": 0,
+    "losing_trades": 0
+  },
+  "双均线策略": {
+    "strategy_name": "双均线策略",
+    "initial_capital": 10000000.0,
+    "final_capital": 7516495060573.718,
+    "total_return": Infinity,
+    "annual_return": Infinity,
+    "max_drawdown": -0.3450983809453166,
+    "sharpe_ratio": 19.281289535873587,
+    "win_rate": 0.0,
+    "profit_loss_ratio": 0.0,
+    "total_trades": 0,
+    "winning_trades": 0,
+    "losing_trades": 0
+  }
+}
